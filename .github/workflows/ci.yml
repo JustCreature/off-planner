@@ -1,10 +1,20 @@
-name: CI — Unit & Chrome E2E Tests
+name: CI & GitHub Pages Deploy
 
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages-and-ci-${{ github.ref }}'
+  cancel-in-progress: true
 
 jobs:
   test-and-build:
@@ -28,7 +38,9 @@ jobs:
       - name: Run Vitest unit tests
         run: npm test
 
-      - name: Build production Astro bundle
+      - name: Build production Astro bundle (for GitHub Pages)
+        env:
+          GITHUB_PAGES: 'true'
         run: npm run build
 
       - name: Install Playwright Chromium browser
@@ -44,3 +56,28 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 7
+
+      - name: Configure GitHub Pages
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload static site artifact for GitHub Pages
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: test-and-build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
