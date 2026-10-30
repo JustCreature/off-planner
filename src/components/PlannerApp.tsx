@@ -8,6 +8,7 @@ import { LinearYearView } from './LinearYearView';
 import { TripsSidebar } from './TripsSidebar';
 import { OverlaysPanel } from './OverlaysPanel';
 import { DayTooltip, forceHideDayTooltip } from './DayTooltip';
+import { MobileBottomNav } from './MobileBottomNav';
 import {
   activeBrush,
   applyBrushToDates,
@@ -15,6 +16,7 @@ import {
   initStoreFromStorage,
   isHydrated,
   leftPanelOpen,
+  mobileActiveSection,
   plannerState,
   redo,
   undo,
@@ -154,6 +156,7 @@ export default function PlannerApp() {
 
   const currentZoom = zoomLevel.value;
   const hydrated = isHydrated.value;
+  const mobileSection = mobileActiveSection.value;
   // Subscribe to plannerState at root so changes trigger clean updates
   const _currentYear = plannerState.value.year;
 
@@ -205,19 +208,28 @@ export default function PlannerApp() {
       <BrushToolbar />
       <DayTooltip />
 
-      <main class="mx-auto flex-1 w-full max-w-[1800px] px-4 py-5">
+      <main class="mx-auto flex-1 w-full max-w-[1920px] 3xl:max-w-[2560px] 4xl:max-w-[3400px] px-3 sm:px-4 py-4 sm:py-5 pb-20 md:pb-5">
         <div
-          class={`grid grid-cols-1 gap-5 items-start ${
+          data-testid="main-layout-grid"
+          class={`grid grid-cols-1 gap-4 sm:gap-5 items-start ${
             leftPanelOpen.value
-              ? 'xl:grid-cols-[330px_1fr_350px]'
-              : 'xl:grid-cols-[52px_1fr_350px]'
+              ? 'xl:grid-cols-[330px_1fr_350px] 3xl:grid-cols-[380px_1fr_420px]'
+              : 'xl:grid-cols-[52px_1fr_350px] 3xl:grid-cols-[56px_1fr_420px]'
           }`}
         >
           {/* Left Collapsible Panel: YAML Overlays (School Holidays, Surfing, Diving) */}
-          <OverlaysPanel />
+          <div
+            data-testid="overlays-section-wrapper"
+            class={`${mobileSection === 'overlays' ? 'block' : 'hidden'} md:block min-w-0`}
+          >
+            <OverlaysPanel />
+          </div>
 
           {/* Main Calendar View */}
-          <div class="min-w-0">
+          <div
+            data-testid="calendar-section-wrapper"
+            class={`${mobileSection === 'calendar' ? 'block' : 'hidden'} md:block min-w-0`}
+          >
             {currentZoom === 'year-linear' ? (
               <LinearYearView
                 selectedRangeSet={selectedRangeSet}
@@ -234,12 +246,19 @@ export default function PlannerApp() {
           </div>
 
           {/* Right Sidebar: Trips & Bridge Opportunities */}
-          <TripsSidebar />
+          <div
+            data-testid="trips-section-wrapper"
+            class={`${mobileSection === 'trips' ? 'block' : 'hidden'} md:block min-w-0`}
+          >
+            <TripsSidebar />
+          </div>
         </div>
       </main>
 
-      <footer class="border-t border-slate-900 bg-slate-950 px-4 py-3 text-center text-xs text-slate-500">
-        <div class="mx-auto flex max-w-[1800px] flex-wrap items-center justify-between gap-2">
+      <MobileBottomNav />
+
+      <footer class="hidden md:block border-t border-slate-900 bg-slate-950 px-4 py-3 text-center text-xs text-slate-500">
+        <div class="mx-auto flex max-w-[1920px] 3xl:max-w-[2560px] 4xl:max-w-[3400px] flex-wrap items-center justify-between gap-2">
           <span>
             Shortcuts: <kbd class="rounded bg-slate-900 px-1.5 py-0.5 text-slate-400">C</kbd> Confirmed •{' '}
             <kbd class="rounded bg-slate-900 px-1.5 py-0.5 text-slate-400">D</kbd> Draft •{' '}

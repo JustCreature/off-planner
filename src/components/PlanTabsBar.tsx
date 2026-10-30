@@ -71,8 +71,8 @@ export function PlanTabsBar() {
       : null;
 
   return (
-    <div class="border-b border-slate-800/80 bg-slate-950/95 px-4 pt-2">
-      <div class="mx-auto flex max-w-[1800px] flex-wrap items-center justify-between gap-2">
+    <div class="border-b border-slate-800/80 bg-slate-950/95 px-3 sm:px-4 pt-2">
+      <div class="mx-auto flex max-w-[1920px] 3xl:max-w-[2560px] 4xl:max-w-[3400px] flex-wrap items-center justify-between gap-2">
         {/* Left: Main Tab + Plan Tabs + '+' Button */}
         <div class="flex items-center gap-1.5 overflow-x-auto pb-1.5">
           {/* Main Tab */}

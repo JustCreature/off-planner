@@ -26,6 +26,7 @@ import {
   toggleOverlayRegion,
   focusedMonth,
   zoomLevel,
+  mobileActiveSection,
 } from '../store/plannerStore';
 import {
   OVERLAY_CONFIGS,
@@ -110,6 +111,7 @@ export function OverlaysPanel() {
     if (zoomLevel.value === 'year-grid' || zoomLevel.value === 'year-linear') {
       zoomLevel.value = 'quarter';
     }
+    mobileActiveSection.value = 'calendar';
   };
 
   if (!isOpen) {

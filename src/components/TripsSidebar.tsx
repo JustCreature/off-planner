@@ -21,6 +21,7 @@ import {
   focusedMonth,
   zoomLevel,
   plannerState,
+  mobileActiveSection,
 } from '../store/plannerStore';
 import {
   formatHumanRange,
@@ -57,6 +58,7 @@ export function TripsSidebar() {
     if (zoomLevel.value === 'year-grid' || zoomLevel.value === 'year-linear') {
       zoomLevel.value = 'quarter';
     }
+    mobileActiveSection.value = 'calendar';
   };
 
   const startEditingName = (block: VacationBlock) => {

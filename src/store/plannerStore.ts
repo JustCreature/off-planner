@@ -603,6 +603,7 @@ export const activeDayOverlays = computed<Record<string, ResolvedDayOverlay[]>>(
 });
 
 export const leftPanelOpen = signal<boolean>(true);
+export const mobileActiveSection = signal<'calendar' | 'trips' | 'overlays'>('calendar');
 
 export function toggleShowOverlays() {
   commitState((s) => ({
