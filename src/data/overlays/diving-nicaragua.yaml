@@ -1,0 +1,81 @@
+id: diving-nicaragua
+name: Diving — Nicaragua (Corn Islands & Crater Lakes)
+template: diving
+defaultEnabled: false
+defaultDisplay: secondary
+color: "#3b82f6"
+location: Little Corn Island (Caribbean) & Laguna de Apoyo
+description: >
+  Nicaragua offers Caribbean reef & hammerhead/nurse shark diving around the Corn Islands (Islas del Maíz)
+  plus volcanic crater diving in Laguna de Apoyo on the Pacific side.
+ranges:
+  - region: Corn Islands (Caribbean)
+    label: Prime Caribbean Dry & Calm Season
+    start: "02-15"
+    end: "05-31"
+    display: primary
+    quality: good
+    avgWaveHeight: "1–2 ft (Calm Sea)"
+    waterTemp: "27–29°C"
+    visibility: "20–35m"
+    currents: "Mild"
+    recommendedLevel: "Open Water – Advanced"
+    description: >
+      Best visibility and calmest boat crossings around Little Corn Island (Blowing Rock, White Holes).
+      Ideal for spotting nurse sharks, rays, turtles, and healthy Caribbean coral.
+
+  - region: Corn Islands (Caribbean)
+    label: Late Summer Caribbean Window (Aug–Sep)
+    start: "08-01"
+    end: "09-30"
+    display: secondary
+    quality: good
+    avgWaveHeight: "1–3 ft"
+    waterTemp: "28–30°C"
+    visibility: "20–30m"
+    currents: "Mild to Moderate"
+    recommendedLevel: "Open Water – Intermediate"
+    description: >
+      Warmest water of the year and calm seas during the Caribbean late-summer lull ("Veranillo").
+
+  - region: Corn Islands (Caribbean)
+    label: Shoulder Season (June–July & Dec–Mid Feb)
+    start: "06-01"
+    end: "07-31"
+    display: secondary
+    quality: shoulder
+    avgWaveHeight: "3–5 ft"
+    waterTemp: "27–28°C"
+    visibility: "15–20m"
+    currents: "Moderate"
+    recommendedLevel: "Intermediate"
+    description: >
+      Mix of sunny days and tropical showers; outer reefs like Blowing Rock depend on wind windows.
+
+  - region: Corn Islands (Caribbean)
+    label: Winter Trade Winds Shoulder (Dec–Mid Feb)
+    start: "12-01"
+    end: "02-14"
+    display: secondary
+    quality: shoulder
+    avgWaveHeight: "4–6 ft (Windy)"
+    waterTemp: "26–27°C"
+    visibility: "12–20m"
+    currents: "Moderate"
+    recommendedLevel: "Intermediate – Advanced"
+    description: >
+      Strong Christmas trade winds ("Nortes") can make boat rides bumpy and reduce visibility on windward reefs.
+
+  - region: Corn Islands (Caribbean)
+    label: Heavy Rain & Storm Season (Oct–Nov)
+    start: "10-01"
+    end: "11-30"
+    display: secondary
+    quality: bad
+    avgWaveHeight: "4–8 ft (Rough)"
+    waterTemp: "27°C"
+    visibility: "5–12m"
+    currents: "Strong / Surge"
+    recommendedLevel: "Advanced Only"
+    description: >
+      Peak Caribbean rainy and storm season; many dive shops reduce schedules or close for maintenance in October/November.

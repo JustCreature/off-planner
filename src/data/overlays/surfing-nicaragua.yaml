@@ -1,0 +1,89 @@
+id: surfing-nicaragua
+name: Surfing — Nicaragua (Pacific Coast)
+template: surfing
+defaultEnabled: false
+defaultDisplay: primary
+color: "#06b6d4"
+location: Popoyo / Tola / San Juan del Sur, Nicaragua
+description: >
+  Pacific Nicaragua is famous for 300+ days a year of offshore Papagayo winds boosted by Lake Nicaragua.
+  Use Recurring MM-DD ranges to see Prime SSW Swell Season, Shoulder/Clean Small-Wave Season, and Heavy Rain/Onshore months.
+ranges:
+  - region: Pacific Coast (Popoyo / Tola)
+    label: Prime Swell Season (Peak Surf)
+    start: "04-01"
+    end: "08-31"
+    display: primary
+    quality: good
+    avgWaveHeight: "4–8 ft (1.2–2.5m)"
+    waterTemp: "27–29°C"
+    wind: "All-day Offshore (Papagayo)"
+    recommendedLevel: "Intermediate – Advanced"
+    description: >
+      Consistent S/SW groundswells from the Roaring Forties combined with all-day offshore Papagayo winds.
+      Best barrels and reef/beach breaks across Popoyo, Colorado, and Santana.
+
+  - region: Pacific Coast (Popoyo / Tola)
+    label: Early Shoulder Season (Warm & Fun)
+    start: "03-01"
+    end: "03-31"
+    display: secondary
+    quality: shoulder
+    avgWaveHeight: "3–5 ft (0.9–1.5m)"
+    waterTemp: "26–28°C"
+    wind: "Consistent Offshore (occasional gusty mornings)"
+    recommendedLevel: "Beginner – Intermediate"
+    description: >
+      First southern hemisphere pulses arrive in March. Sunny dry season weather, uncrowded lineups, and fun chest-to-head-high waves.
+
+  - region: Pacific Coast (Popoyo / Tola)
+    label: Late Shoulder Season (September)
+    start: "09-01"
+    end: "09-30"
+    display: secondary
+    quality: shoulder
+    avgWaveHeight: "4–6 ft (1.2–1.8m)"
+    waterTemp: "27–28°C"
+    wind: "Light / Variable Morning Offshore"
+    recommendedLevel: "Intermediate"
+    description: >
+      Still plenty of SSW swell and empty lineups, though tropical rains start increasing toward the end of the month.
+
+  - region: Pacific Coast (Popoyo / Tola)
+    label: Late Shoulder / Dry Transition (Nov–Dec)
+    start: "11-01"
+    end: "12-31"
+    display: secondary
+    quality: shoulder
+    avgWaveHeight: "2–4 ft (0.6–1.2m)"
+    waterTemp: "26–28°C"
+    wind: "Strong Offshore"
+    recommendedLevel: "Beginner – Intermediate"
+    description: >
+      Lush green landscape after the rains, clean waist-to-chest high waves, and warm water. Great for longboarding and progression.
+
+  - region: Pacific Coast (Popoyo / Tola)
+    label: Small Swell & Strong Papagayo Upwelling (Jan–Feb)
+    start: "01-01"
+    end: "02-28"
+    display: secondary
+    quality: bad
+    avgWaveHeight: "2–3 ft (0.5–1.0m)"
+    waterTemp: "22–25°C (Upwelling)"
+    wind: "Very Strong Offshore Gales"
+    recommendedLevel: "Beginner"
+    description: >
+      Smallest swells of the year and strong offshore winds cause cold-water upwelling (bring a 2mm top/spring suit).
+
+  - region: Pacific Coast (Popoyo / Tola)
+    label: Peak Rainy Month / Onshore Risk (October)
+    start: "10-01"
+    end: "10-31"
+    display: secondary
+    quality: bad
+    avgWaveHeight: "3–6 ft (choppy)"
+    waterTemp: "27°C"
+    wind: "Onshore / Tropical Squalls"
+    recommendedLevel: "Intermediate – Advanced"
+    description: >
+      Wettest month of the year in Nicaragua; frequent onshore winds, river runoff, and some dirt roads become muddy.

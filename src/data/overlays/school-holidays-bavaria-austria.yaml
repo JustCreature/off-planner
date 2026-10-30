@@ -1,0 +1,141 @@
+id: school-holidays-bavaria-austria
+name: School Holidays (Bavaria & Austria)
+template: generic
+defaultEnabled: false
+defaultDisplay: secondary
+color: "#f97316"
+location: Bavaria (DE) & Austria (AT) by Land
+description: >
+  Official school holiday periods in Bavaria and Austrian Bundesländer (Tyrol, Salzburg, Vorarlberg, Vienna, Lower/Upper Austria, Styria, Carinthia, Burgenland).
+  Useful for planning snowboarding & ski trips while avoiding peak resort crowds and high prices.
+ranges:
+  # ==========================================
+  # BAVARIA (BAYERN) — 2026 & 2027
+  # ==========================================
+  - region: Bayern (Bavaria)
+    label: Winter/Faschingsferien Bayern
+    start: "2025-12-22"
+    end: "2026-01-05"
+    description: Christmas/New Year school holidays in Bavaria — peak Alpine ski resort prices.
+  - region: Bayern (Bavaria)
+    label: Winterferien (Fasching) Bayern
+    start: "2026-02-16"
+    end: "2026-02-20"
+    description: Fasching week in Bavaria — very busy in Austrian & Bavarian ski resorts.
+  - region: Bayern (Bavaria)
+    label: Osterferien Bayern
+    start: "2026-03-30"
+    end: "2026-04-10"
+    description: Easter school holidays in Bavaria (high-altitude & glacier ski resorts busy).
+  - region: Bayern (Bavaria)
+    label: Pfingstferien Bayern
+    start: "2026-05-26"
+    end: "2026-06-05"
+    description: Two-week Pentecost school break in Bavaria.
+  - region: Bayern (Bavaria)
+    label: Sommerferien Bayern
+    start: "2026-08-03"
+    end: "2026-09-14"
+    description: Bavarian summer school holidays.
+  - region: Bayern (Bavaria)
+    label: Herbstferien Bayern
+    start: "2026-11-02"
+    end: "2026-11-06"
+    description: Autumn school break (Allerheiligenferien) — glacier ski openings busy.
+  - region: Bayern (Bavaria)
+    label: Weihnachtsferien Bayern
+    start: "2026-12-24"
+    end: "2027-01-08"
+    description: Christmas & New Year school holidays in Bavaria.
+  - region: Bayern (Bavaria)
+    label: Winterferien (Fasching) Bayern
+    start: "2027-02-08"
+    end: "2027-02-12"
+    description: Fasching week 2027 in Bavaria — high crowd levels in Alps.
+  - region: Bayern (Bavaria)
+    label: Osterferien Bayern
+    start: "2027-03-22"
+    end: "2027-04-02"
+    description: Easter school holidays 2027 in Bavaria.
+  - region: Bayern (Bavaria)
+    label: Pfingstferien Bayern
+    start: "2027-05-18"
+    end: "2027-05-28"
+    description: Pentecost school holidays 2027 in Bavaria.
+
+  # ==========================================
+  # AUSTRIA — TIROL, SALZBURG & VORARLBERG
+  # ==========================================
+  - region: AT — Tirol, Salzburg & Vorarlberg
+    label: Weihnachtsferien (AT West)
+    start: "2025-12-24"
+    end: "2026-01-06"
+    description: Austrian Christmas & Epiphany school holidays.
+  - region: AT — Tirol, Salzburg & Vorarlberg
+    label: Semesterferien (Tirol, Salzburg, Vorarlberg)
+    start: "2026-02-09"
+    end: "2026-02-14"
+    description: Ski week (Semesterferien) in Tyrol, Salzburg & Vorarlberg.
+  - region: AT — Tirol, Salzburg & Vorarlberg
+    label: Osterferien (AT West)
+    start: "2026-03-28"
+    end: "2026-04-06"
+    description: Austrian Easter school holidays 2026.
+  - region: AT — Tirol, Salzburg & Vorarlberg
+    label: Herbstferien (AT West)
+    start: "2026-10-27"
+    end: "2026-10-31"
+    description: Austrian Autumn school break (between Nationalfeiertag and All Saints).
+  - region: AT — Tirol, Salzburg & Vorarlberg
+    label: Weihnachtsferien (AT West)
+    start: "2026-12-24"
+    end: "2027-01-06"
+    description: Austrian Christmas & Epiphany school holidays 2026/2027.
+  - region: AT — Tirol, Salzburg & Vorarlberg
+    label: Semesterferien (Tirol, Salzburg, Vorarlberg)
+    start: "2027-02-15"
+    end: "2027-02-20"
+    description: Ski week (Semesterferien) 2027 in Tyrol, Salzburg & Vorarlberg.
+  - region: AT — Tirol, Salzburg & Vorarlberg
+    label: Osterferien (AT West)
+    start: "2027-03-20"
+    end: "2027-03-29"
+    description: Austrian Easter school holidays 2027.
+
+  # ==========================================
+  # AUSTRIA — WIEN & NIEDERÖSTERREICH
+  # ==========================================
+  - region: AT — Wien & Niederösterreich
+    label: Semesterferien (Wien & NÖ)
+    start: "2026-02-02"
+    end: "2026-02-07"
+    description: First wave of Austrian ski holidays (Vienna & Lower Austria).
+  - region: AT — Wien & Niederösterreich
+    label: Semesterferien (Wien & NÖ)
+    start: "2027-02-01"
+    end: "2027-02-06"
+    description: First wave of Austrian ski holidays 2027 (Vienna & Lower Austria).
+
+  # ==========================================
+  # AUSTRIA — STEIERMARK, OBERÖSTERREICH, KÄRNTEN, BURGENLAND
+  # ==========================================
+  - region: AT — OÖ, Steiermark, Kärnten, Bgld
+    label: Semesterferien (Bgld, Kärnten, Stmk, OÖ)
+    start: "2026-02-09"
+    end: "2026-02-14"
+    description: Semesterferien in Burgenland (Feb 2-7) & Carinthia/Styria/Upper Austria (Feb 16-21).
+  - region: AT — OÖ, Steiermark, Kärnten, Bgld
+    label: Semesterferien (Stmk, Kärnten, OÖ)
+    start: "2026-02-16"
+    end: "2026-02-21"
+    description: Third wave of Austrian Semesterferien (Styria, Carinthia, Upper Austria).
+  - region: AT — OÖ, Steiermark, Kärnten, Bgld
+    label: Semesterferien (Kärnten & Burgenland)
+    start: "2027-02-08"
+    end: "2027-02-13"
+    description: Semesterferien 2027 in Carinthia & Burgenland.
+  - region: AT — OÖ, Steiermark, Kärnten, Bgld
+    label: Semesterferien (OÖ & Steiermark)
+    start: "2027-02-15"
+    end: "2027-02-20"
+    description: Semesterferien 2027 in Upper Austria & Styria.

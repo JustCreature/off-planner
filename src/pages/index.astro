@@ -1,0 +1,21 @@
+---
+import '../styles/global.css';
+import PlannerApp from '../components/PlannerApp';
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Off-Planner — Fast Vacation & Days Off Planner</title>
+    <meta
+      name="description"
+      content="Fast, zoomable vacation and PTO days-off planner with smart bridge-day detection and JSON import/export."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="bg-slate-950 text-slate-100 antialiased selection:bg-emerald-500 selection:text-slate-950">
+    <PlannerApp client:load />
+  </body>
+</html>
