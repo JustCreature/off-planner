@@ -18,13 +18,20 @@
 
 ```text
 off-planner/
+├── .github/
+│   └── workflows/
+│       └── ci.yml                   # GitHub Actions CI (Vitest + Astro build + Playwright Chrome E2E)
 ├── AGENTS.md                        # AI Agent instructions, invariants & project architecture
 ├── README.md                        # User & setup documentation (including YAML overlay guide)
 ├── astro.config.mjs                 # Astro 5 + Preact + Tailwind CSS v4 Vite config
-├── package.json                     # Scripts (dev, build, preview, test) & dependencies
+├── playwright.config.ts             # Playwright Chrome (Chromium) E2E configuration
+├── package.json                     # Scripts (dev, build, preview, test, test:e2e) & dependencies
 ├── tsconfig.json                    # Strict TypeScript config for Astro + Preact
 ├── public/
 │   └── favicon.svg                  # App icon
+├── tests/
+│   └── e2e/
+│       └── planner.spec.ts          # Comprehensive Playwright Chrome UI E2E test suite
 └── src/
     ├── pages/
     │   └── index.astro              # Main Astro shell mounting <PlannerApp client:load />
@@ -100,6 +107,6 @@ off-planner/
 ## Verification Commands
 Before completing any task, always run:
 ```bash
-npm test && npm run build
+npm test && npm run build && npm run test:e2e
 ```
-Ensure all Vitest unit tests pass and the static Astro production build completes with zero errors.
+Ensure all Vitest unit tests pass, the static Astro production build completes with zero errors, and all Playwright Chrome E2E tests pass.

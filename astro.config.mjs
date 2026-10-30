@@ -3,6 +3,9 @@ import preact from '@astrojs/preact';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
+  devToolbar: {
+    enabled: false,
+  },
   integrations: [preact()],
   vite: {
     plugins: [tailwindcss()],

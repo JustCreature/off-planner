@@ -201,6 +201,8 @@ export function DayTooltip() {
 
   return (
     <div
+      data-testid="day-tooltip"
+      data-date={ymd}
       style={{
         left: `${left}px`,
         top: `${top}px`,
