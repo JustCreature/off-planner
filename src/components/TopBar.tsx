@@ -12,6 +12,7 @@ import {
   RotateCcw,
   Sparkles,
   CheckCircle2,
+  SlidersHorizontal,
 } from 'lucide-preact';
 import {
   plannerState,
@@ -51,6 +52,7 @@ export function TopBar() {
   const currentZoom = zoomLevel.value;
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [toast, setToast] = useState<string | null>(null);
+  const [mobileSettingsOpen, setMobileSettingsOpen] = useState(false);
 
   const showToast = (msg: string) => {
     setToast(msg);
@@ -144,18 +146,18 @@ export function TopBar() {
         </div>
       )}
 
-      <div class="mx-auto flex max-w-[1800px] flex-wrap items-center justify-between gap-3 px-4 py-3">
+      <div class="mx-auto flex max-w-[1920px] 3xl:max-w-[2560px] 4xl:max-w-[3400px] flex-wrap items-center justify-between gap-2.5 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3">
         {/* Brand + Year & Period Switcher */}
-        <div class="flex items-center gap-3">
-          <div class="flex items-center gap-2.5">
-            <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 text-slate-950 shadow-lg shadow-emerald-500/20">
-              <Calendar class="h-5 w-5 stroke-[2.2]" />
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3 w-full md:w-auto justify-between md:justify-start">
+          <div class="flex items-center gap-2">
+            <div class="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 text-slate-950 shadow-lg shadow-emerald-500/20">
+              <Calendar class="h-4 w-4 sm:h-5 sm:w-5 stroke-[2.2]" />
             </div>
             <div>
-              <h1 class="text-base font-bold tracking-tight text-white leading-none">
+              <h1 class="text-sm sm:text-base font-bold tracking-tight text-white leading-none">
                 Off-Planner
               </h1>
-              <p class="text-[11px] text-slate-400 mt-0.5">
+              <p class="hidden sm:block text-[11px] text-slate-400 mt-0.5">
                 Fast Vacation & PTO Architect
               </p>
             </div>
@@ -168,23 +170,39 @@ export function TopBar() {
             <button
               type="button"
               onClick={() => setYear(state.year - 1)}
-              class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
+              class="rounded-lg p-1 sm:p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
               title="Previous Year"
             >
               <ChevronLeft class="h-4 w-4" />
             </button>
-            <span class="px-2.5 text-sm font-semibold tabular-nums text-white">
+            <span class="px-2 sm:px-2.5 text-xs sm:text-sm font-semibold tabular-nums text-white">
               {state.year}
             </span>
             <button
               type="button"
               onClick={() => setYear(state.year + 1)}
-              class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
+              class="rounded-lg p-1 sm:p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
               title="Next Year"
             >
               <ChevronRight class="h-4 w-4" />
             </button>
           </div>
+
+          {/* Mobile Settings Drawer Toggle Button */}
+          <button
+            type="button"
+            data-testid="mobile-settings-toggle"
+            onClick={() => setMobileSettingsOpen((prev) => !prev)}
+            class={`md:hidden flex items-center gap-1 rounded-xl border px-2.5 py-1.5 text-xs font-semibold transition-colors cursor-pointer ${
+              mobileSettingsOpen
+                ? 'border-indigo-500/50 bg-indigo-500/20 text-indigo-200'
+                : 'border-slate-800 bg-slate-900 text-slate-300'
+            }`}
+            title="Toggle Budget, Bundesland & Export Settings"
+          >
+            <SlidersHorizontal class="h-3.5 w-3.5" />
+            <span>{budget.remainingAfterDrafts}d left</span>
+          </button>
 
           {/* Sub-year Period Switcher when zoomed in */}
           {(currentZoom === 'month' ||
@@ -194,18 +212,18 @@ export function TopBar() {
               <button
                 type="button"
                 onClick={() => stepPeriod(-1)}
-                class="rounded-lg p-1.5 text-indigo-300 hover:bg-indigo-900/50 hover:text-white transition-colors"
+                class="rounded-lg p-1 sm:p-1.5 text-indigo-300 hover:bg-indigo-900/50 hover:text-white transition-colors"
                 title="Previous period"
               >
                 <ChevronLeft class="h-4 w-4" />
               </button>
-              <span class="px-2.5 text-xs font-semibold text-indigo-200 min-w-[110px] text-center">
+              <span class="px-2 sm:px-2.5 text-xs font-semibold text-indigo-200 min-w-[96px] sm:min-w-[110px] text-center">
                 {getPeriodLabel()}
               </span>
               <button
                 type="button"
                 onClick={() => stepPeriod(1)}
-                class="rounded-lg p-1.5 text-indigo-300 hover:bg-indigo-900/50 hover:text-white transition-colors"
+                class="rounded-lg p-1 sm:p-1.5 text-indigo-300 hover:bg-indigo-900/50 hover:text-white transition-colors"
                 title="Next period"
               >
                 <ChevronRight class="h-4 w-4" />
@@ -214,8 +232,12 @@ export function TopBar() {
           )}
 
           {/* German Bundesland / Country Holiday Preset Selector */}
-          <div class="flex items-center gap-1.5 rounded-xl border border-slate-800 bg-slate-900/90 px-2.5 py-1.5">
-            <span class="text-xs text-slate-400 hidden md:inline">Bundesland / Region:</span>
+          <div
+            class={`${
+              mobileSettingsOpen ? 'flex w-full' : 'hidden md:flex'
+            } items-center justify-between gap-1.5 rounded-xl border border-slate-800 bg-slate-900/90 px-2.5 py-1.5`}
+          >
+            <span class="text-xs text-slate-400">Bundesland / Region:</span>
             <select
               aria-label="Bundesland or Country Holiday Preset"
               value={state.countryPreset}
@@ -250,7 +272,11 @@ export function TopBar() {
         </div>
 
         {/* Center: Live PTO Budget Meter */}
-        <div class="flex flex-1 min-w-[280px] max-w-xl items-center gap-4 rounded-2xl border border-slate-800/90 bg-slate-900/70 px-4 py-2">
+        <div
+          class={`${
+            mobileSettingsOpen ? 'flex w-full' : 'hidden md:flex'
+          } flex-1 min-w-[260px] max-w-xl items-center gap-3 sm:gap-4 rounded-2xl border border-slate-800/90 bg-slate-900/70 px-3 sm:px-4 py-2`}
+        >
           {/* Allowance Inputs (Per-Year) */}
           <div class="flex items-center gap-3">
             <label class="flex flex-col" title={`Annual PTO allowance for ${state.year}`}>
@@ -329,20 +355,20 @@ export function TopBar() {
         </div>
 
         {/* Right: Zoom Controls + Undo/Redo + JSON Export/Import */}
-        <div class="flex items-center gap-2">
+        <div class="flex flex-wrap items-center justify-between md:justify-end gap-1.5 sm:gap-2 w-full md:w-auto">
           {/* Zoom Switcher */}
-          <div class="flex items-center rounded-xl border border-slate-800 bg-slate-900/90 p-1">
+          <div class="flex items-center rounded-xl border border-slate-800 bg-slate-900/90 p-0.5 sm:p-1">
             <button
               type="button"
               onClick={zoomOut}
               disabled={currentZoom === 'year-linear'}
-              class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white disabled:opacity-30 transition-colors"
+              class="rounded-lg p-1 sm:p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white disabled:opacity-30 transition-colors"
               title="Zoom Out (-)"
             >
-              <ZoomOut class="h-4 w-4" />
+              <ZoomOut class="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </button>
 
-            <div class="flex items-center gap-0.5 px-1">
+            <div class="flex items-center gap-0.5 px-0.5 sm:px-1">
               {ZOOM_OPTIONS.map((z) => {
                 const active = currentZoom === z.id;
                 return (
@@ -351,7 +377,7 @@ export function TopBar() {
                     type="button"
                     onClick={() => (zoomLevel.value = z.id)}
                     title={z.label}
-                    class={`rounded-lg px-2.5 py-1 text-xs font-semibold transition-all ${
+                    class={`rounded-lg px-2 sm:px-2.5 py-1 text-[11px] sm:text-xs font-semibold transition-all ${
                       active
                         ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/30'
                         : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
@@ -367,52 +393,58 @@ export function TopBar() {
               type="button"
               onClick={zoomIn}
               disabled={currentZoom === 'month'}
-              class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white disabled:opacity-30 transition-colors"
+              class="rounded-lg p-1 sm:p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white disabled:opacity-30 transition-colors"
               title="Zoom In (+)"
             >
-              <ZoomIn class="h-4 w-4" />
+              <ZoomIn class="h-3.5 w-3.5 sm:h-4 sm:w-4" />
             </button>
           </div>
 
-          {/* Bridge Hints Toggle */}
-          <button
-            type="button"
-            onClick={() => (showBridgeHints.value = !showBridgeHints.value)}
-            class={`flex items-center gap-1.5 rounded-xl border px-2.5 py-2 text-xs font-medium transition-all ${
-              showBridgeHints.value
-                ? 'border-violet-500/50 bg-violet-500/15 text-violet-300'
-                : 'border-slate-800 bg-slate-900 text-slate-400 hover:text-slate-200'
-            }`}
-            title="Highlight optimal bridge days next to holidays & weekends"
-          >
-            <Sparkles class="h-3.5 w-3.5" />
-            <span class="hidden xl:inline">Bridge Hints</span>
-          </button>
+          <div class="flex items-center gap-1.5">
+            {/* Bridge Hints Toggle */}
+            <button
+              type="button"
+              onClick={() => (showBridgeHints.value = !showBridgeHints.value)}
+              class={`flex items-center gap-1.5 rounded-xl border px-2 sm:px-2.5 py-1.5 sm:py-2 text-xs font-medium transition-all ${
+                showBridgeHints.value
+                  ? 'border-violet-500/50 bg-violet-500/15 text-violet-300'
+                  : 'border-slate-800 bg-slate-900 text-slate-400 hover:text-slate-200'
+              }`}
+              title="Highlight optimal bridge days next to holidays & weekends"
+            >
+              <Sparkles class="h-3.5 w-3.5" />
+              <span class="hidden xl:inline">Bridge Hints</span>
+            </button>
 
-          {/* Undo / Redo */}
-          <div class="flex items-center rounded-xl border border-slate-800 bg-slate-900/90 p-0.5">
-            <button
-              type="button"
-              onClick={undo}
-              disabled={undoStack.value.length === 0}
-              class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white disabled:opacity-30 transition-colors"
-              title="Undo (Cmd/Ctrl + Z)"
-            >
-              <Undo2 class="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              onClick={redo}
-              disabled={redoStack.value.length === 0}
-              class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white disabled:opacity-30 transition-colors"
-              title="Redo (Cmd/Ctrl + Y or Cmd/Ctrl + Shift + Z)"
-            >
-              <Redo2 class="h-4 w-4" />
-            </button>
+            {/* Undo / Redo */}
+            <div class="flex items-center rounded-xl border border-slate-800 bg-slate-900/90 p-0.5">
+              <button
+                type="button"
+                onClick={undo}
+                disabled={undoStack.value.length === 0}
+                class="rounded-lg p-1 sm:p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white disabled:opacity-30 transition-colors"
+                title="Undo (Cmd/Ctrl + Z)"
+              >
+                <Undo2 class="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              </button>
+              <button
+                type="button"
+                onClick={redo}
+                disabled={redoStack.value.length === 0}
+                class="rounded-lg p-1 sm:p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white disabled:opacity-30 transition-colors"
+                title="Redo (Cmd/Ctrl + Y or Cmd/Ctrl + Shift + Z)"
+              >
+                <Redo2 class="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              </button>
+            </div>
           </div>
 
           {/* Export / Import JSON */}
-          <div class="flex items-center gap-1.5">
+          <div
+            class={`${
+              mobileSettingsOpen ? 'flex w-full justify-end' : 'hidden md:flex'
+            } items-center gap-1.5`}
+          >
             <button
               type="button"
               onClick={handleExport}
@@ -420,7 +452,7 @@ export function TopBar() {
               title="Export plan as JSON file"
             >
               <Download class="h-3.5 w-3.5 text-emerald-400" />
-              <span class="hidden sm:inline">Export JSON</span>
+              <span>Export JSON</span>
             </button>
 
             <button
@@ -430,7 +462,7 @@ export function TopBar() {
               title="Import plan from JSON file"
             >
               <Upload class="h-3.5 w-3.5 text-indigo-400" />
-              <span class="hidden sm:inline">Import JSON</span>
+              <span>Import JSON</span>
             </button>
 
             <input

@@ -61,6 +61,7 @@ off-planner/
     │   ├── CalendarGrid.tsx         # Multi-zoom calendar grid (12M, 6M, 3M, 1M) with multi-icon cells
     │   ├── LinearYearView.tsx       # 12×31 full-year horizontal timeline matrix view
     │   ├── TripsSidebar.tsx         # Right sidebar (My Trips, Bridge Hacks, Feiertage verification list)
+    │   ├── MobileBottomNav.tsx      # Dedicated mobile bottom navigation bar (Calendar, Trips, Overlays)
     │   └── DayTooltip.tsx           # 400ms delayed, interactive, scrollable floating day popover
     └── tests/
         └── planner.test.ts          # Vitest suite covering holidays, PTO math, YAML overlays & tabs

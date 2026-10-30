@@ -77,12 +77,12 @@ export function CalendarGrid({
 
   const gridColsClass =
     currentZoom === 'year-grid'
-      ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5'
+      ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-6 gap-3.5 3xl:gap-4'
       : currentZoom === '6-months'
-        ? 'grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4'
+        ? 'grid-cols-1 md:grid-cols-2 xl:grid-cols-3 4xl:grid-cols-6 gap-4'
         : currentZoom === 'quarter'
           ? 'grid-cols-1 lg:grid-cols-3 gap-5'
-          : 'grid-cols-1 max-w-4xl mx-auto';
+          : 'grid-cols-1 max-w-4xl 3xl:max-w-6xl mx-auto';
 
   const weekdayLabels = state.weekStartsOnMonday ? WEEKDAYS_MON : WEEKDAYS_SUN;
   const todayYMD = new Date().toISOString().slice(0, 10);
@@ -99,7 +99,7 @@ export function CalendarGrid({
   };
 
   return (
-    <div class={`grid ${gridColsClass} select-none`}>
+    <div data-testid="calendar-grid" class={`grid ${gridColsClass} select-none`}>
       {visibleMonths.map((monthIdx) => {
         const daysInMonth = getDaysInMonth(state.year, monthIdx);
         const firstYMD = formatYMD(state.year, monthIdx, 1);
@@ -271,10 +271,10 @@ export function CalendarGrid({
                 const isToday = ymd === todayYMD;
 
                 const cellHeightClass = isDetailed
-                  ? 'min-h-[104px] p-2 items-start justify-between'
+                  ? 'min-h-[84px] sm:min-h-[104px] 3xl:min-h-[128px] p-1.5 sm:p-2 items-start justify-between'
                   : isMedium
-                    ? 'min-h-[58px] p-1.5 items-center justify-between'
-                    : 'h-8 items-center justify-center';
+                    ? 'min-h-[52px] sm:min-h-[58px] 3xl:min-h-[72px] p-1 sm:p-1.5 items-center justify-between'
+                    : 'h-9 sm:h-8 3xl:h-10 items-center justify-center';
 
                 let bgClass =
                   'bg-slate-950/60 text-slate-200 hover:bg-slate-800/80 border-slate-800/60';

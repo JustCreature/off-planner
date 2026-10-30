@@ -71,9 +71,9 @@ export function BrushToolbar() {
 
   return (
     <div class="border-b border-slate-800/70 bg-slate-900/50 backdrop-blur-sm">
-      <div class="mx-auto flex max-w-[1800px] flex-wrap items-center justify-between gap-2 px-4 py-2">
-        <div class="flex flex-wrap items-center gap-1.5">
-          <span class="mr-1 text-xs font-medium text-slate-400">
+      <div class="mx-auto flex max-w-[1920px] 3xl:max-w-[2560px] 4xl:max-w-[3400px] flex-wrap items-center justify-between gap-2 px-3 sm:px-4 py-2">
+        <div class="flex flex-nowrap sm:flex-wrap items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-0.5 sm:pb-0">
+          <span class="mr-1 hidden sm:inline text-xs font-medium text-slate-400">
             Paint Mode (Click or Drag):
           </span>
 
@@ -85,15 +85,15 @@ export function BrushToolbar() {
                 type="button"
                 onClick={() => (activeBrush.value = b.id)}
                 title={`${b.desc} (Shortcut: ${b.shortcut})`}
-                class={`group flex items-center gap-2 rounded-xl border px-3 py-1.5 text-xs font-semibold transition-all cursor-pointer ${
+                class={`group shrink-0 flex items-center gap-1.5 sm:gap-2 rounded-xl border px-2.5 sm:px-3 py-1.5 text-xs font-semibold transition-all cursor-pointer ${
                   isActive
                     ? b.activeClass
                     : 'border-slate-800 bg-slate-900/80 text-slate-300 hover:border-slate-700 hover:bg-slate-800/80'
                 }`}
               >
-                <span class={`h-2.5 w-2.5 rounded-full ${b.badgeClass}`} />
+                <span class={`h-2.5 w-2.5 rounded-full shrink-0 ${b.badgeClass}`} />
                 <span>{b.label}</span>
-                <kbd class="rounded bg-slate-950/60 px-1.5 py-0.5 text-[10px] font-mono text-slate-400 group-hover:text-slate-300">
+                <kbd class="hidden sm:inline rounded bg-slate-950/60 px-1.5 py-0.5 text-[10px] font-mono text-slate-400 group-hover:text-slate-300">
                   {b.shortcut}
                 </kbd>
               </button>

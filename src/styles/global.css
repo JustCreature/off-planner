@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-3xl: 120rem;
+  --breakpoint-4xl: 150rem;
+}
+
 @layer utilities {
   .bg-stripes {
     background-image: repeating-linear-gradient(

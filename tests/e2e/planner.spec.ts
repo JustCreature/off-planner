@@ -232,4 +232,102 @@ test.describe('Off-Planner Comprehensive Chrome UI E2E Suite', () => {
     await page.getByTitle('Redo (Cmd/Ctrl + Y or Cmd/Ctrl + Shift + Z)').click();
     await expect(topBar).toContainText('Confirmed: 3d');
   });
+
+  test('7. Mobile Phone (375x812): shows bottom navigation bar, prioritizes calendar view, supports mobile settings drawer, and navigates between Trips & Overlays', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+
+    const bottomNav = page.getByTestId('mobile-bottom-nav');
+    const calendarSection = page.getByTestId('calendar-section-wrapper');
+    const tripsSection = page.getByTestId('trips-section-wrapper');
+    const overlaysSection = page.getByTestId('overlays-section-wrapper');
+
+    // Bottom navigation is visible on mobile; Calendar is visible by default while Trips & Overlays are hidden
+    await expect(bottomNav).toBeVisible();
+    await expect(calendarSection).toBeVisible();
+    await expect(tripsSection).toBeHidden();
+    await expect(overlaysSection).toBeHidden();
+
+    // Tap a date on mobile calendar (2026-05-15) -> updates status and remaining days badge
+    const may15 = page.locator('[data-date="2026-05-15"]');
+    await may15.click();
+    await expect(may15).toHaveAttribute('data-status', 'confirmed');
+    await expect(page.getByTestId('mobile-settings-toggle')).toContainText('24d left');
+    await expect(bottomNav).toContainText('1d');
+
+    // Toggle mobile settings drawer to edit Allowance on phone
+    await page.getByTestId('mobile-settings-toggle').click();
+    const allowanceInput = page
+      .locator('label', { hasText: /Allowance \(2026\)/i })
+      .locator('input');
+    await expect(allowanceInput).toBeVisible();
+    await allowanceInput.fill('30');
+    await expect(page.getByTestId('mobile-settings-toggle')).toContainText('29d left');
+
+    // Switch to "Trips & Holidays" tab via MobileBottomNav
+    await bottomNav.getByRole('button', { name: /Trips & Holidays/i }).click();
+    await expect(tripsSection).toBeVisible();
+    await expect(calendarSection).toBeHidden();
+    await expect(tripsSection).toContainText('4 days'); // May 14 holiday + May 15 PTO + May 16-17 weekend
+
+    // Switch to "Overlays" tab via MobileBottomNav and enable Surfing overlay
+    await bottomNav.getByRole('button', { name: /Overlays/i }).click();
+    await expect(overlaysSection).toBeVisible();
+    await expect(tripsSection).toBeHidden();
+    await overlaysSection
+      .locator('button[title="Show overlay on calendar"]')
+      .nth(1)
+      .click();
+    await expect(bottomNav.getByRole('button', { name: /Overlays/i })).toContainText(
+      '1'
+    );
+
+    // Tap "Calendar" in MobileBottomNav to return to the calendar
+    await bottomNav.getByRole('button', { name: /Calendar/i }).click();
+    await expect(calendarSection).toBeVisible();
+  });
+
+  test('8. Responsive Screen Sizes: adapts cleanly from Tablet (768px) and Laptop (1024px) up to Ultra-Wide (2560x1440 & 3440x1440) with a 6-column panoramic Year Grid', async ({
+    page,
+  }) => {
+    const bottomNav = page.getByTestId('mobile-bottom-nav');
+    const calendarGrid = page.getByTestId('calendar-grid');
+
+    // 1. Tablet (768x1024): MobileBottomNav is hidden, all sections are visible, CalendarGrid has 2 columns
+    await page.setViewportSize({ width: 768, height: 1024 });
+    await expect(bottomNav).toBeHidden();
+    await expect(page.getByTestId('calendar-section-wrapper')).toBeVisible();
+    await expect(page.getByTestId('trips-section-wrapper')).toBeVisible();
+    const tabletCols = await calendarGrid.evaluate(
+      (el) => window.getComputedStyle(el).gridTemplateColumns.split(' ').length
+    );
+    expect(tabletCols).toBe(2);
+
+    // 2. Medium Laptop (1024x768): CalendarGrid has 3 columns
+    await page.setViewportSize({ width: 1024, height: 768 });
+    const laptopCols = await calendarGrid.evaluate(
+      (el) => window.getComputedStyle(el).gridTemplateColumns.split(' ').length
+    );
+    expect(laptopCols).toBe(3);
+
+    // 3. Normal Desktop (1440x900): CalendarGrid has 4 columns
+    await page.setViewportSize({ width: 1440, height: 900 });
+    const desktopCols = await calendarGrid.evaluate(
+      (el) => window.getComputedStyle(el).gridTemplateColumns.split(' ').length
+    );
+    expect(desktopCols).toBe(4);
+
+    // 4. Ultra-Wide Monitor (2560x1440 & 3440x1440): CalendarGrid expands to 6 columns (6x2 half-year rows) and uses wide container
+    await page.setViewportSize({ width: 3440, height: 1440 });
+    const ultraWideCols = await calendarGrid.evaluate(
+      (el) => window.getComputedStyle(el).gridTemplateColumns.split(' ').length
+    );
+    expect(ultraWideCols).toBe(6);
+
+    const layoutWidth = await page
+      .getByTestId('main-layout-grid')
+      .evaluate((el) => el.getBoundingClientRect().width);
+    expect(layoutWidth).toBeGreaterThan(2400);
+  });
 });

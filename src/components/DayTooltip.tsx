@@ -181,15 +181,18 @@ export function DayTooltip() {
     !entry && !holiday && !isWeekend && bridgeHintDates.value.has(ymd);
   const dayOverlays = activeDayOverlays.value[ymd] || [];
 
-  // Keep floating card inside viewport bounds & anchored right next to the cell
+  // Keep floating card inside viewport bounds & anchored right next to the cell (or centered on mobile)
   const viewportW = typeof window !== 'undefined' ? window.innerWidth : 1200;
   const viewportH = typeof window !== 'undefined' ? window.innerHeight : 800;
-  const cardWidth = 340;
-  const maxCardHeight = Math.min(440, viewportH - 24);
+  const cardWidth = Math.min(340, viewportW - 24);
+  const maxCardHeight = Math.min(440, viewportH - 96);
 
-  // Horizontal placement: prefer right of the cell, or flip to left if near right edge
-  let left = anchorRect.right + 8;
-  if (left + cardWidth > viewportW - 12) {
+  // Horizontal placement: center on mobile (< 640px), or prefer right of the cell on larger screens
+  let left =
+    viewportW < 640
+      ? Math.max(12, Math.floor((viewportW - cardWidth) / 2))
+      : anchorRect.right + 8;
+  if (viewportW >= 640 && left + cardWidth > viewportW - 12) {
     left = Math.max(12, anchorRect.left - cardWidth - 8);
   }
 
