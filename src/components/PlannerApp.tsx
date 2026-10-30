@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'preact/hooks';
+import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { Loader2 } from 'lucide-preact';
 import { TopBar } from './TopBar';
 import { PlanTabsBar } from './PlanTabsBar';
@@ -27,6 +27,8 @@ import { getDatesBetween } from '../lib/dateUtils';
 export default function PlannerApp() {
   const [dragStart, setDragStart] = useState<string | null>(null);
   const [dragCurrent, setDragCurrent] = useState<string | null>(null);
+  const dragStartRef = useRef<string | null>(null);
+  const dragCurrentRef = useRef<string | null>(null);
   const [isDraggingFile, setIsDraggingFile] = useState(false);
 
   // Hydrate state from localStorage on client mount to avoid SSR hydration mismatch
@@ -45,28 +47,36 @@ export default function PlannerApp() {
     if (e.button !== 0) return; // left click only
     e.preventDefault();
     forceHideDayTooltip();
+    dragStartRef.current = ymd;
+    dragCurrentRef.current = ymd;
     setDragStart(ymd);
     setDragCurrent(ymd);
   };
 
   const handleDayPointerEnter = (ymd: string) => {
-    if (!dragStart) return;
+    if (!dragStartRef.current) return;
+    dragCurrentRef.current = ymd;
     setDragCurrent(ymd);
   };
 
   useEffect(() => {
     const handleMouseUp = () => {
-      if (dragStart && dragCurrent) {
-        const range = getDatesBetween(dragStart, dragCurrent);
+      if (dragStartRef.current && dragCurrentRef.current) {
+        const range = getDatesBetween(
+          dragStartRef.current,
+          dragCurrentRef.current
+        );
         applyBrushToDates(range, activeBrush.value);
       }
+      dragStartRef.current = null;
+      dragCurrentRef.current = null;
       setDragStart(null);
       setDragCurrent(null);
     };
 
     window.addEventListener('mouseup', handleMouseUp);
     return () => window.removeEventListener('mouseup', handleMouseUp);
-  }, [dragStart, dragCurrent]);
+  }, []);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -157,6 +167,7 @@ export default function PlannerApp() {
       {/* Blocking Loading Modal while Hydrating / Fetching Saved Planner Data */}
       {!hydrated && (
         <div
+          data-testid="loading-modal"
           role="status"
           aria-live="polite"
           aria-busy="true"

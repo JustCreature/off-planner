@@ -150,6 +150,8 @@ export function LinearYearView({
                   return (
                     <div
                       key={ymd}
+                      data-date={ymd}
+                      data-status={entry?.status || 'none'}
                       onMouseDown={(e) => onDayPointerDown(ymd, e)}
                       onMouseEnter={(e) => {
                         onDayPointerEnter(ymd);

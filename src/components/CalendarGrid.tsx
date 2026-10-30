@@ -326,6 +326,8 @@ export function CalendarGrid({
                 return (
                   <div
                     key={ymd}
+                    data-date={ymd}
+                    data-status={entry?.status || 'none'}
                     style={customCellStyle}
                     onMouseDown={(e) => onDayPointerDown(ymd, e)}
                     onMouseEnter={(e) => {

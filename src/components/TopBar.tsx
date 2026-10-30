@@ -133,7 +133,10 @@ export function TopBar() {
   const isOverBudget = budget.remainingAfterDrafts < 0;
 
   return (
-    <header class="sticky top-0 z-30 border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md">
+    <header
+      data-testid="top-bar"
+      class="sticky top-0 z-30 border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md"
+    >
       {toast && (
         <div class="fixed top-4 right-4 z-50 flex items-center gap-2 rounded-xl border border-emerald-500/40 bg-slate-900/95 px-4 py-2.5 text-sm font-medium text-emerald-300 shadow-2xl">
           <CheckCircle2 class="h-4 w-4 text-emerald-400" />
